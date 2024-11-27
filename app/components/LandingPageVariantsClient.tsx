@@ -25,4 +25,6 @@ export const LandingPageVariantsClient = () => {
       </div>
     );
   }
+
+  if (flagEnabled === undefined) return null;
 };

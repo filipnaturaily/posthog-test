@@ -4,11 +4,13 @@ import { PostHogProvider } from 'posthog-js/react';
 import { ReactNode } from 'react';
 import posthog from 'posthog-js';
 
-interface CSPostHogProviderProps {
+interface PHProviderProps {
   children: ReactNode;
 }
 
-export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
+// TODO: try to add useEffect
+
+export function PHProvider({ children }: PHProviderProps) {
   const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
   if (isProduction) {
@@ -20,14 +22,13 @@ export function CSPostHogProvider({ children }: CSPostHogProviderProps) {
       return children;
     }
 
-    // TODO: how to check this?
-    // if (!posthog.has_opted_in_capturing()) {
-    console.log('the post hog is initialized properly');
-    posthog.init(posthogKey, {
-      api_host: posthogHost,
-      person_profiles: 'always',
-    });
-    // }
+    if (posthog.has_opted_in_capturing()) {
+      console.log('the post hog is initialized properly');
+      posthog.init(posthogKey, {
+        api_host: posthogHost,
+        person_profiles: 'always',
+      });
+    }
 
     return <PostHogProvider client={posthog}>{children}</PostHogProvider>;
   }
