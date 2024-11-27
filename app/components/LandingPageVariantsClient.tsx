@@ -5,8 +5,6 @@ import { useFeatureFlagEnabled, useFeatureFlagPayload } from 'posthog-js/react';
 export const LandingPageVariantsClient = () => {
   const flagEnabled = useFeatureFlagEnabled('landing-page-variants');
 
-  console.log('client side flag enabled', flagEnabled);
-
   const payload = useFeatureFlagPayload('landing-page-variants');
 
   if (flagEnabled)
