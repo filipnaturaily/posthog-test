@@ -3,6 +3,8 @@ import localFont from 'next/font/local';
 import './globals.css';
 import PostHogPageView from './providers/PostHogPageView';
 import { PHProvider } from './providers/PHProvider';
+import { Suspense } from 'react';
+import { LoadingSkeleton } from './components/LoadingSkeleton';
 
 const geistSans = localFont({
   src: './fonts/GeistVF.woff',
@@ -31,8 +33,10 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <PostHogPageView />
-          {children}
+          <Suspense fallback={<LoadingSkeleton />}>
+            <PostHogPageView />
+            {children}
+          </Suspense>
         </body>
       </PHProvider>
     </html>
