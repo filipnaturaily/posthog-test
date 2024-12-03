@@ -3,6 +3,7 @@
 // import { VercelTestClientSide } from './components/VercelTestClientSide';
 // import { MultipleVariantsFlag } from './components/MultipleVariantsFlag';
 import { FirstExperiment } from './components/FirstExperiment';
+// import { YetAnotherExperiment } from './components/YetAnotherExperiment';
 
 // TODO: fix flickering
 
@@ -14,6 +15,7 @@ const Page = () => {
       {/* <VercelTestClientSide /> */}
       {/* <MultipleVariantsFlag /> */}
       <FirstExperiment />
+      {/* <YetAnotherExperiment /> */}
     </div>
   );
 };
