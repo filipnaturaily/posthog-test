@@ -1,6 +1,8 @@
 'use client';
 
+import posthog from 'posthog-js';
 import { PostHogFeature } from 'posthog-js/react';
+import { useEffect, useState } from 'react';
 // import { LoadingSkeleton } from './LoadingSkeleton';
 
 export const FirstExperiment = () => {
@@ -31,6 +33,23 @@ export const FirstExperiment = () => {
   // }
 
   // if (variant === undefined) return <LoadingSkeleton />;
+
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (posthog) {
+      posthog.onFeatureFlags(() => {
+        setIsLoading(false);
+      });
+    }
+  }, []);
+
+  if (isLoading)
+    return (
+      <div className='bg-red-400 py-20'>
+        <p>This is default component</p>
+      </div>
+    );
 
   return (
     <>
