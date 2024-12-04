@@ -1,6 +1,7 @@
 import { PostHog } from 'posthog-node';
 import { cookies } from 'next/headers';
 import { nanoid } from 'nanoid';
+import { cache } from 'react';
 
 export const getBootstrappedPostHogData = async () => {
   const postHogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
@@ -20,8 +21,12 @@ export const getBootstrappedPostHogData = async () => {
     distinct_id = phCookieParsed.distinct_id;
   }
 
+  const generateId = cache(() => {
+    return nanoid();
+  });
+
   if (!distinct_id) {
-    distinct_id = nanoid();
+    distinct_id = generateId();
   }
 
   const postHogClient = new PostHog(postHogKey, {
