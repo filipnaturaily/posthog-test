@@ -2,10 +2,10 @@
 // import { LandingPageVariantsClient } from './components/LandingPageVariantsClient';
 // import { VercelTestClientSide } from './components/VercelTestClientSide';
 // import { MultipleVariantsFlag } from './components/MultipleVariantsFlag';
-import { FirstExperiment } from './components/FirstExperiment';
+// import { FirstExperiment } from './components/FirstExperiment';
 // import { YetAnotherExperiment } from './components/YetAnotherExperiment';
 
-// TODO: fix flickering
+import { FirstExperimentServerSide } from './components/FirstExperimentServerSide';
 
 const Page = () => {
   return (
@@ -14,8 +14,9 @@ const Page = () => {
       {/* <LandingPageVariantsClient /> */}
       {/* <VercelTestClientSide /> */}
       {/* <MultipleVariantsFlag /> */}
-      <FirstExperiment />
+      {/* <FirstExperiment /> */}
       {/* <YetAnotherExperiment /> */}
+      <FirstExperimentServerSide />
     </div>
   );
 };

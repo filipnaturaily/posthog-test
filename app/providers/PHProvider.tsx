@@ -6,11 +6,13 @@ import posthog from 'posthog-js';
 
 interface PHProviderProps {
   children: ReactNode;
+  bootstrapData?: {
+    distinctID: string;
+    featureFlags: Record<string, string | boolean>;
+  };
 }
 
-// TODO: try to add useEffect
-
-export function PHProvider({ children }: PHProviderProps) {
+export function PHProvider({ children, bootstrapData }: PHProviderProps) {
   const isProduction = process.env.NEXT_PUBLIC_ENV === 'production';
 
   if (isProduction) {
@@ -27,6 +29,7 @@ export function PHProvider({ children }: PHProviderProps) {
       posthog.init(posthogKey, {
         api_host: posthogHost,
         person_profiles: 'always',
+        bootstrap: bootstrapData,
       });
     }
 
