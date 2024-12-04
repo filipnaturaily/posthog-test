@@ -10,23 +10,22 @@ export const getBootstrappedPostHogData = async () => {
 
   if (!postHogKey || !postHogHost || !isProd) return undefined;
 
-  let distinct_id = '';
-  const phProjectAPIKey = 'phc_Igs8y7lWEqnmsAE8BQJDBHkpnKP2MiQhnTdBaobOzmM';
-  const phCookieName = `ph_${phProjectAPIKey}_posthog`;
+  let distinctID = '';
+  const phCookieName = `ph_${postHogKey}_posthog`;
   const cookieStore = cookies();
   const phCookie = cookieStore.get(phCookieName);
 
   if (phCookie) {
     const phCookieParsed = JSON.parse(phCookie.value);
-    distinct_id = phCookieParsed.distinct_id;
+    distinctID = phCookieParsed.distinct_id;
   }
 
   const generateId = cache(() => {
     return nanoid();
   });
 
-  if (!distinct_id) {
-    distinct_id = generateId();
+  if (!distinctID) {
+    distinctID = generateId();
   }
 
   const postHogClient = new PostHog(postHogKey, {
@@ -35,11 +34,11 @@ export const getBootstrappedPostHogData = async () => {
     flushInterval: 0,
   });
 
-  const flags = await postHogClient.getAllFlags(distinct_id);
+  const featureFlags = await postHogClient.getAllFlags(distinctID);
 
   const bootstrapData = {
-    distinctID: distinct_id,
-    featureFlags: flags,
+    distinctID,
+    featureFlags,
   };
 
   return bootstrapData;
