@@ -20,12 +20,10 @@ export function PHProvider({ children, bootstrapData }: PHProviderProps) {
     const posthogHost = process.env.NEXT_PUBLIC_POSTHOG_HOST;
 
     if (!posthogKey || !posthogHost) {
-      console.error('PostHog key or host is not defined.');
       return children;
     }
 
     if (posthog.has_opted_in_capturing()) {
-      console.log('the post hog is initialized properly');
       posthog.init(posthogKey, {
         api_host: posthogHost,
         person_profiles: 'always',

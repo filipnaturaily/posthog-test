@@ -6,8 +6,6 @@
 
 //   const flags = posthogClient && (await posthogClient.getAllFlags(nanoid()));
 
-//   console.log(flags);
-
 //   if (!flags) return null;
 
 //   if (flags['yet-another-experiment'] === 'control') {
